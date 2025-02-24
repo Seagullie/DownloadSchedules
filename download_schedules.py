@@ -40,14 +40,14 @@ start_pos = full_time_education_text_pos = schedules_listing_page_html.find(
     Constants.FULL_TIME_EDUCATION_TEXT
 )
 
-end_text_pos: int = -1
-end_text_pos = part_time_education_text_pos = schedules_listing_page_html.find(
+end_text_pos = doctor_of_philosophy_text_pos = schedules_listing_page_html.find(
+    Constants.DOCTOR_OF_PHILOSOPHY_TEXT, full_time_education_text_pos)
+
+if end_text_pos == -1:    
+    end_text_pos = part_time_education_text_pos = schedules_listing_page_html.find(
     Constants.PART_TIME_EDUCATION_TEXT, 
     full_time_education_text_pos
 )
-if end_text_pos == -1:
-    end_text_pos = doctor_of_philosophy_text_pos = schedules_listing_page_html.find(
-    Constants.DOCTOR_OF_PHILOSOPHY_TEXT, full_time_education_text_pos)
 
 schedules_listing_page_html = schedules_listing_page_html[
     start_pos:end_text_pos
