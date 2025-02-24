@@ -8,6 +8,7 @@ class Constants:
     PART_TIME_EDUCATION_TEXT = "ЗАОЧНА ФОРМА НАВЧАННЯ"
     FULL_TIME_EDUCATION_TEXT = "ДЕННА ФОРМА НАВЧАННЯ"
     FIRST_SPECIALTY_TEXT = "022 Дизайн"
+    DOCTOR_OF_PHILOSOPHY_TEXT = "ДОКТОР ФІЛОСОФІЇ"
     
     PATH_TO_OUTPUT_DIRECTORY = "./output"
     

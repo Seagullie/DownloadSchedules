@@ -33,18 +33,24 @@ print("Last updated: " + last_updated_text)
 
 # cut off irrelevant parts from the html.
 # the relevant partg starts after element with text "022 Дизайн".
-# the irrelevant part starts after element with text "ЗАОЧНА ФОРМА НАВЧАННЯ".
+# the irrelevant part starts after element with text "ДОКТОР ФІЛОСОФІЇ або ЗАОЧНА ФОРМА НАВЧАННЯ".
 
 
-first_specialty_text_pos = schedules_listing_page_html.find(
+start_pos = full_time_education_text_pos = schedules_listing_page_html.find(
     Constants.FULL_TIME_EDUCATION_TEXT
 )
-part_time_education_text_pos = schedules_listing_page_html.find(
-    Constants.PART_TIME_EDUCATION_TEXT, first_specialty_text_pos
+
+end_text_pos: int = -1
+end_text_pos = part_time_education_text_pos = schedules_listing_page_html.find(
+    Constants.PART_TIME_EDUCATION_TEXT, 
+    full_time_education_text_pos
 )
+if end_text_pos == -1:
+    end_text_pos = doctor_of_philosophy_text_pos = schedules_listing_page_html.find(
+    Constants.DOCTOR_OF_PHILOSOPHY_TEXT, full_time_education_text_pos)
 
 schedules_listing_page_html = schedules_listing_page_html[
-    first_specialty_text_pos:part_time_education_text_pos
+    start_pos:end_text_pos
 ]
 
 # save the html to a file for debugging purposes.
