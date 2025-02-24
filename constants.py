@@ -2,7 +2,8 @@ class Constants:
     
     SCHEDULE_LISTING_PAGE_URL = "https://www.uad.edu.ua/rozklad-zaniat"
     
-    GOOGLE_DRIVE_FILE_DOWNLOAD_LINK_TEMPLATE = "https://drive.usercontent.google.com/download?id={}&export=download&authuser=0"
+    GOOGLE_DRIVE_FILE_DOWNLOAD_LINK_TEMPLATE = "https://drive.google.com/uc?export=download&confirm=t&id={}"
+    
 
     PART_TIME_EDUCATION_TEXT = "ЗАОЧНА ФОРМА НАВЧАННЯ"
     FULL_TIME_EDUCATION_TEXT = "ДЕННА ФОРМА НАВЧАННЯ"

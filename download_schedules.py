@@ -14,11 +14,17 @@ from utils import extract_last_update_text
 
 # the page blocks requests that don't have a user agent header.
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
 }
 schedules_listing_page_html = requests.get(
     Constants.SCHEDULE_LISTING_PAGE_URL, headers=headers
 ).text
+
+# save the html to a file for debugging purposes.
+with open("output/schedules_listing_page.html", "w", encoding="utf-8") as f:
+    f.write(schedules_listing_page_html)
 
 # extract date of last update.
 
@@ -31,7 +37,7 @@ print("Last updated: " + last_updated_text)
 
 
 first_specialty_text_pos = schedules_listing_page_html.find(
-    Constants.FIRST_SPECIALTY_TEXT
+    Constants.FULL_TIME_EDUCATION_TEXT
 )
 part_time_education_text_pos = schedules_listing_page_html.find(
     Constants.PART_TIME_EDUCATION_TEXT, first_specialty_text_pos
@@ -40,6 +46,10 @@ part_time_education_text_pos = schedules_listing_page_html.find(
 schedules_listing_page_html = schedules_listing_page_html[
     first_specialty_text_pos:part_time_education_text_pos
 ]
+
+# save the html to a file for debugging purposes.
+with open("output/schedules_listing_page_narrowed_down.html", "w", encoding="utf-8") as f:
+    f.write(schedules_listing_page_html)
 
 
 # extract all links to schedule PDFs from the html.
@@ -83,7 +93,13 @@ for link in tqdm(
     link_href = link[0]
     link_text = link[1]
 
-    schedule_pdf = requests.get(link_href)
+    schedule_pdf = requests.get(link_href, headers={
+            "Cache-Control": "no-cache",
+            "Pragma": "no-cache",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0",
+        }, allow_redirects=True)
     schedule_pdf_filename = link_text + ".pdf"
 
     with open(
